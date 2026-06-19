@@ -1,0 +1,67 @@
+{
+  "classification": "SIMULATED PORTFOLIO DATA",
+  "caseId": "CASE-20260619-001",
+  "ticketNumber": "INC-10427",
+  "customer": "Contoso Branch Office",
+  "technician": "Dewald Pretorius",
+  "target": "WS-FIN-014",
+  "symptom": "Intermittent Microsoft 365 access and slow sign-in",
+  "summary": {
+    "pluginCount": 4,
+    "successfulPlugins": 4,
+    "failedPlugins": 0,
+    "findingCount": 5,
+    "criticalCount": 0,
+    "highCount": 2,
+    "mediumCount": 2,
+    "lowCount": 1
+  },
+  "findings": [
+    {
+      "plugin": "NetworkDiagnostics",
+      "severity": "High",
+      "confidence": 95,
+      "title": "Public DNS server configured on endpoint",
+      "evidence": "Ethernet: 8.8.8.8",
+      "impact": "Internal service discovery and managed name resolution may fail.",
+      "recommendation": "Configure approved internal DNS resolvers and renew the client configuration."
+    },
+    {
+      "plugin": "WindowsUpdate",
+      "severity": "High",
+      "confidence": 92,
+      "title": "Recent Windows Update errors detected",
+      "evidence": "14 update errors recorded in the previous 14 days",
+      "impact": "The endpoint may remain non-compliant and miss reliability fixes.",
+      "recommendation": "Review update events, proxy access, free space, and component-store health."
+    },
+    {
+      "plugin": "SystemHealth",
+      "severity": "Medium",
+      "confidence": 95,
+      "title": "Low disk capacity on C:",
+      "evidence": "11.4 GB free (9.5 percent)",
+      "impact": "Servicing and application performance may be affected.",
+      "recommendation": "Review temporary data, logs, user data, and retention settings."
+    },
+    {
+      "plugin": "EventCorrelation",
+      "severity": "Medium",
+      "confidence": 80,
+      "title": "Repeated event 1001 from Windows Error Reporting",
+      "evidence": "18 occurrences in 48 hours",
+      "impact": "A recurring application failure may be contributing to the reported symptom.",
+      "recommendation": "Correlate the event with the affected application and recent changes."
+    },
+    {
+      "plugin": "WindowsUpdate",
+      "severity": "Low",
+      "confidence": 95,
+      "title": "Pending reboot detected",
+      "evidence": "ComponentBasedServicing",
+      "impact": "Servicing operations may be incomplete.",
+      "recommendation": "Schedule a controlled restart and rerun the assessment."
+    }
+  ],
+  "disclosure": "This file contains synthetic data and is not evidence from a real customer environment."
+}
