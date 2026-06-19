@@ -1,0 +1,104 @@
+name: PowerShell CI
+
+on:
+  push:
+    branches:
+      - main
+      - upgrade/**
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Analyze and test on Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install test dependencies
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+
+      - name: Validate module manifest
+        shell: pwsh
+        run: |
+          Test-ModuleManifest ./modules/WindowsEnterpriseTroubleshooting/WindowsEnterpriseTroubleshooting.psd1 -ErrorAction Stop
+
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          $paths = @(
+            './modules/WindowsEnterpriseTroubleshooting',
+            './plugins',
+            './Windows_Enterprise_Troubleshooter_v2.ps1'
+          )
+          $results = foreach ($path in $paths) {
+            Invoke-ScriptAnalyzer -Path $path -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
+          }
+          $results | Format-Table -AutoSize
+          if ($results) {
+            throw "PSScriptAnalyzer returned $(@($results).Count) finding(s)."
+          }
+
+      - name: Run Pester tests
+        shell: pwsh
+        run: |
+          $configuration = New-PesterConfiguration
+          $configuration.Run.Path = './tests'
+          $configuration.Run.Exit = $true
+          $configuration.Output.Verbosity = 'Detailed'
+          $configuration.TestResult.Enabled = $true
+          $configuration.TestResult.OutputPath = 'test-results.xml'
+          $configuration.CodeCoverage.Enabled = $true
+          $configuration.CodeCoverage.Path = './modules/WindowsEnterpriseTroubleshooting/*.psm1'
+          $configuration.CodeCoverage.OutputPath = 'coverage.xml'
+          Invoke-Pester -Configuration $configuration
+
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: powershell-test-evidence
+          path: |
+            test-results.xml
+            coverage.xml
+          if-no-files-found: warn
+
+  package:
+    name: Package v2 preview
+    runs-on: windows-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build release package
+        shell: pwsh
+        run: |
+          $package = './artifacts/Windows-Enterprise-Troubleshooting-Framework-v2-preview'
+          New-Item $package -ItemType Directory -Force | Out-Null
+          Copy-Item './Windows_Enterprise_Troubleshooter_v2.ps1' $package
+          Copy-Item './modules' $package -Recurse
+          Copy-Item './plugins' $package -Recurse
+          Copy-Item './config' $package -Recurse
+          Copy-Item './schemas' $package -Recurse
+          Copy-Item './docs' $package -Recurse
+          Copy-Item './README.md','./CHANGELOG.md','./SECURITY.md','./LICENSE' $package -ErrorAction SilentlyContinue
+          Compress-Archive -Path "$package/*" -DestinationPath './artifacts/Windows-Enterprise-Troubleshooting-Framework-v2-preview.zip' -Force
+
+      - name: Upload preview package
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-enterprise-troubleshooting-v2-preview
+          path: ./artifacts/Windows-Enterprise-Troubleshooting-Framework-v2-preview.zip
