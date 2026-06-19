@@ -9,5 +9,6 @@
 - [x] Sensitive-data redaction tests
 - [x] GitHub Actions preview package
 - [x] Read-only safety review
+- [x] Redundant status files removed
 
 The version 2 pull request is ready for review. Merge remains a deliberate maintainer action.
