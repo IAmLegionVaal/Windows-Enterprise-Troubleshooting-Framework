@@ -11,6 +11,7 @@
 - Pester module and plugin-contract tests passed
 - Sensitive-data redaction tests passed
 - Preview package generated successfully in CI
+- Repository documentation cleaned up
 
 ## Release scope
 
