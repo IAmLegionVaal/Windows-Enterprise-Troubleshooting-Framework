@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/IAmLegionVaal/Windows-Enterprise-Troubleshooting-Framework/schemas/v2.settings.schema.json",
+  "title": "Windows Enterprise Troubleshooting Framework v2 settings",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "EventHours": { "type": "integer", "minimum": 1, "maximum": 720 },
+    "DiskWarningPercent": { "type": "number", "minimum": 1, "maximum": 100 },
+    "DiskCriticalPercent": { "type": "number", "minimum": 1, "maximum": 100 },
+    "MemoryWarningPercent": { "type": "number", "minimum": 1, "maximum": 100 },
+    "HotfixAgeWarningDays": { "type": "integer", "minimum": 1, "maximum": 3650 },
+    "MaxEventGroups": { "type": "integer", "minimum": 1, "maximum": 10000 },
+    "RedactSensitiveData": { "type": "boolean" },
+    "OpenReportAfterRun": { "type": "boolean" },
+    "EnabledPlugins": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "required": [
+    "EventHours",
+    "DiskWarningPercent",
+    "DiskCriticalPercent",
+    "MemoryWarningPercent",
+    "HotfixAgeWarningDays",
+    "MaxEventGroups",
+    "RedactSensitiveData",
+    "EnabledPlugins"
+  ]
+}
