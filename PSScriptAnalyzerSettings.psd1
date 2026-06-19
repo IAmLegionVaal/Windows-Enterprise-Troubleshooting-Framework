@@ -7,8 +7,6 @@
         'PSAvoidGlobalVars',
         'PSUseApprovedVerbs',
         'PSUseDeclaredVarsMoreThanAssignments',
-        'PSUsePSCredentialType',
-        'PSReviewUnusedParameter',
-        'PSUseShouldProcessForStateChangingFunctions'
+        'PSReviewUnusedParameter'
     )
 }
