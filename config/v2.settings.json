@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/v2.settings.schema.json",
+  "EventHours": 48,
+  "DiskWarningPercent": 15,
+  "DiskCriticalPercent": 5,
+  "MemoryWarningPercent": 10,
+  "HotfixAgeWarningDays": 90,
+  "MaxEventGroups": 100,
+  "RedactSensitiveData": true,
+  "OpenReportAfterRun": false,
+  "EnabledPlugins": [
+    "SystemHealth",
+    "NetworkDiagnostics",
+    "WindowsUpdate",
+    "EventCorrelation"
+  ]
+}
