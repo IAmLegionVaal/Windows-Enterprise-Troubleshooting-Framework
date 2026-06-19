@@ -9,6 +9,7 @@ The project follows Semantic Versioning.
 ### Added
 
 - First sanitized Windows PowerShell 5.1 validation record under `docs/validation/`
+- Successful Windows CI validation record covering manifest, analyzer, Pester, redaction, coverage, and packaging
 
 ### Changed
 
@@ -18,6 +19,7 @@ The project follows Semantic Versioning.
 - Windows Update error severity now considers recency and repetition.
 - Event Correlation now uses event-specific tuning profiles and conservative generic severity.
 - DistributedCOM 10016, PowerShell 4100/4104, and VBScript deprecation telemetry remain evidence-only unless additional context makes them actionable.
+- PSScriptAnalyzer policy is aligned with the read-only diagnostic API surface.
 
 ### Planned
 
