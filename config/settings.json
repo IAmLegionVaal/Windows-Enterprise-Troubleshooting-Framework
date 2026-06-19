@@ -1,0 +1,22 @@
+{
+  "DefaultMode": "Interactive",
+  "EventLookbackHours": 48,
+  "UpdateLookbackDays": 90,
+  "ConnectivityTargets": [
+    "8.8.8.8",
+    "1.1.1.1",
+    "www.microsoft.com",
+    "login.microsoftonline.com"
+  ],
+  "ReportFormats": [
+    "CSV",
+    "JSON",
+    "HTML"
+  ],
+  "GuidedRepair": {
+    "RequireConfirmation": true,
+    "AllowDnsCacheFlush": true,
+    "AllowDhcpRenew": true,
+    "AllowUpdateServiceRestart": true
+  }
+}
