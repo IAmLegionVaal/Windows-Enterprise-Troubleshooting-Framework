@@ -6,6 +6,19 @@ The project follows Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- First sanitized Windows PowerShell 5.1 validation record under `docs/validation/`
+
+### Changed
+
+- Network Diagnostics now limits APIPA findings to active physical or routing-relevant interfaces.
+- Public DNS checks now focus on active or routing-relevant interfaces.
+- Windows Update no longer treats normally stopped manual or trigger-start services as faults.
+- Windows Update error severity now considers recency and repetition.
+- Event Correlation now uses event-specific tuning profiles and conservative generic severity.
+- DistributedCOM 10016, PowerShell 4100/4104, and VBScript deprecation telemetry remain evidence-only unless additional context makes them actionable.
+
 ### Planned
 
 - Remote target adapters for PowerShell Remoting and CIM
