@@ -8,5 +8,6 @@ Release-candidate code and validation are complete:
 - Sensitive-data redaction
 - Windows PowerShell 5.1 runtime validation
 - Pester, PSScriptAnalyzer, coverage, packaging, and Windows CI
+- Repository documentation cleanup
 
 The pull request is ready for review. Remote fleet and guided-repair provider features remain deferred.
