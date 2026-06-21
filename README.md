@@ -1,22 +1,33 @@
 # Windows Enterprise Troubleshooting Framework
 
-A modular, menu-driven PowerShell framework for Windows diagnostics, guided repair, evidence collection, and technician reporting.
+A modular, menu-driven PowerShell framework for Windows diagnostics, guided repair, evidence collection and technician reporting.
 
 ## Core capabilities
 
-- System health and performance analysis
-- Network, DNS, and connectivity diagnostics
-- Windows Update diagnostics
-- Event-log correlation
-- Storage, services, startup, and security context
-- Guided repair actions with confirmation prompts
-- Timestamped case folders and technician-friendly HTML reports
+- System health, performance, storage and service analysis
+- Network, DNS and connectivity diagnostics
+- Windows Update diagnostics and guided repair
+- Event-log correlation and startup review
+- Security context and consolidated case reporting
+- Timestamped output with technician-friendly HTML reports
 
 ## Operating modes
 
 - **Diagnostic** — read-only checks and evidence collection
-- **Guided Repair** — selected low-risk repair actions with confirmation
-- **Report Only** — generates a consolidated case report
+- **Guided Repair** — selected repair actions with confirmation
+- **Report Only** — consolidated case report generation
+
+## Run
+
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\Windows_Enterprise_Troubleshooter.ps1
+```
+
+Non-interactive diagnostic case:
+
+```powershell
+.\Windows_Enterprise_Troubleshooter.ps1 -Mode Diagnostic -RunAll
+```
 
 ## Repository structure
 
@@ -31,27 +42,10 @@ docs/technician-guide.md
 docs/safety-and-rollback.md
 ```
 
-## Run
+## Safety and validation
 
-```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\Windows_Enterprise_Troubleshooter.ps1
-```
+Guided repairs require confirmation unless force is explicitly selected. The framework avoids destructive account, encryption and disk operations. GitHub Actions parses every PowerShell script on each change so syntax failures are caught before release. Real repair behaviour must still be tested on suitable Windows lab systems.
 
-Run a non-interactive diagnostic case:
+## Author
 
-```powershell
-.\Windows_Enterprise_Troubleshooter.ps1 -Mode Diagnostic -RunAll
-```
-
-## Safety
-
-Diagnostic checks are read-only. Guided repair actions require confirmation unless `-Force` is explicitly supplied. The framework does not perform destructive registry, account, encryption, or disk operations.
-
-## Requirements
-
-- Windows PowerShell 5.1 or later
-- Administrator rights recommended for complete evidence collection
-
-## Portfolio note
-
-This repository demonstrates modular PowerShell design, defensive error handling, structured logging, report generation, and practical enterprise troubleshooting workflows.
+Dewald Pretorius — L2 IT Support Engineer
